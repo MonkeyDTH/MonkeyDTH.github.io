@@ -13,26 +13,288 @@
 
     body {
       min-height: 100vh;
+      background: #0d1117;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #e6edf3;
+    }
+
+    /* 顶部 Hero 区 */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 8vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #fff;
+    }
+
+    .hero h1 span {
+      color: #58a6ff;
+    }
+
+    .hero p {
+      margin-top: 16px;
+      font-size: 1.05rem;
+      color: #8b949e;
+      max-width: 480px;
+    }
+
+    /* 项目区 */
+    .section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .section-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8b949e;
+      margin-bottom: 20px;
+    }
+
+    /* 项目卡片 */
+    .project-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 28px 32px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: #58a6ff;
+      box-shadow: 0 0 0 1px #58a6ff22, 0 4px 24px #58a6ff11;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .card-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* CC 图标 */
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1f6feb, #388bfd);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #0d1117;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-    }
-
-    h1 {
-      font-size: clamp(2rem, 8vw, 5rem);
-      font-weight: 700;
+      font-size: 0.75rem;
+      font-weight: 800;
       color: #fff;
-      letter-spacing: 0.02em;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
     }
 
-    h1 span {
+    .card-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #e6edf3;
+    }
+
+    .card-version {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #3fb950;
+      background: #12261e;
+      border: 1px solid #1f4d2f;
+      border-radius: 20px;
+      padding: 2px 8px;
+      margin-top: 2px;
+    }
+
+    .card-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      color: #8b949e;
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 20px;
+      padding: 3px 10px;
+    }
+
+    .card-desc {
+      margin-top: 16px;
+      font-size: 0.95rem;
+      color: #8b949e;
+      line-height: 1.65;
+    }
+
+    /* 功能 tag 列表 */
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .feature-tag {
+      font-size: 0.75rem;
       color: #58a6ff;
+      background: #0d2044;
+      border: 1px solid #1f3d6b;
+      border-radius: 6px;
+      padding: 3px 10px;
+    }
+
+    /* 操作按钮 */
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.15s, box-shadow 0.15s;
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+    }
+
+    .btn-primary {
+      background: #1f6feb;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+    }
+
+    .btn-secondary:hover {
+      border-color: #8b949e;
+    }
+
+    /* GitHub 链接图标 SVG */
+    .icon-github {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .icon-download {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* 分割线 */
+    .divider {
+      border: none;
+      border-top: 1px solid #21262d;
+      margin: 0 24px 40px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
     }
   </style>
 </head>
 <body>
-  <h1>Hello From <span>TH</span>!</h1>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Hello From <span>TH</span>!</h1>
+    <p>独立开发者，专注于开发者工具与效率提升。</p>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 项目展示 -->
+  <section class="section">
+    <p class="section-title">Projects</p>
+
+    <div class="project-card">
+      <div class="card-header">
+        <div class="card-title-wrap">
+          <div class="card-icon">CC</div>
+          <div>
+            <div class="card-name">CC Assistant</div>
+            <div class="card-version">v0.6.2</div>
+          </div>
+        </div>
+        <div class="card-badges">
+          <span class="badge">Windows</span>
+          <span class="badge">Claude Code</span>
+        </div>
+      </div>
+
+      <p class="card-desc">
+        Claude Code 桌面管理面板——可视化管理 Claude Code 的配置、会话、Skills、Plugins、Hooks 和 Memory。无需手动编辑 JSON / Markdown 文件。
+      </p>
+
+      <div class="feature-tags">
+        <span class="feature-tag">仪表盘</span>
+        <span class="feature-tag">Prompt</span>
+        <span class="feature-tag">Memory</span>
+        <span class="feature-tag">Sessions</span>
+        <span class="feature-tag">Skills</span>
+        <span class="feature-tag">Plugins</span>
+        <span class="feature-tag">Hooks</span>
+        <span class="feature-tag">Settings</span>
+      </div>
+
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://github.com/MonkeyDTH/cc_assistant/releases/latest" target="_blank">
+          <svg class="icon-download" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          下载最新版本
+        </a>
+        <a class="btn btn-secondary" href="https://monkeydth.github.io/cc_assistant/" target="_blank">
+          项目主页 →
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/MonkeyDTH/cc_assistant" target="_blank">
+          <svg class="icon-github" viewBox="0 0 24 24">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
 </body>
 </html>
