@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MonkeyDTH</title>
   <style>
+    /* 设计令牌：颜色只分三档文字灰 + 唯一强调蓝，间距按 8 的倍数 */
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --line: #21262d;
+      --line-strong: #30363d;
+      --text: #e6edf3;
+      --text-2: #8b949e;
+      --text-3: #6e7681;
+      --accent: #58a6ff;
+      --accent-solid: #1f6feb;
+      --mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -13,44 +27,61 @@
 
     body {
       min-height: 100vh;
-      background: #0d1117;
+      background: var(--bg);
       font-family: 'Segoe UI', system-ui, sans-serif;
-      color: #e6edf3;
+      color: var(--text);
+      line-height: 1.5;
     }
 
-    /* 顶部 Hero 区 */
+    /* 全页唯一内容列：所有区块共用同一左边缘与宽度 */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero：与内容列左对齐 */
     .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 24px 60px;
-      text-align: center;
+      padding: 120px 0 64px;
     }
 
     .hero h1 {
-      font-size: clamp(2rem, 8vw, 4.5rem);
+      font-size: clamp(2.5rem, 7vw, 4rem);
       font-weight: 700;
-      letter-spacing: 0.02em;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
       color: #fff;
     }
 
     .hero h1 span {
-      color: #58a6ff;
+      color: var(--accent);
     }
 
     .hero p {
       margin-top: 16px;
       font-size: 1.05rem;
-      color: #8b949e;
-      max-width: 480px;
+      color: var(--text-2);
     }
 
-    /* 项目区 */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--line);
+    }
+
+    /* 分区 */
     .section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
+      padding-top: 56px;
+    }
+
+    .section:last-of-type {
+      padding-bottom: 96px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
     .section-title {
@@ -58,160 +89,148 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #8b949e;
-      margin-bottom: 20px;
+      color: var(--text-2);
     }
 
-    /* 项目卡片 */
+    .section-note {
+      font-size: 0.8rem;
+      color: var(--text-3);
+    }
+
+    /* 卡片列表：卡片间距明显大于卡片内部间距 */
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
     .project-card {
-      background: #161b22;
-      border: 1px solid #30363d;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
       border-radius: 12px;
-      padding: 28px 32px;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      padding: 28px;
+      transition: border-color 0.2s;
     }
 
     .project-card:hover {
-      border-color: #58a6ff;
-      box-shadow: 0 0 0 1px #58a6ff22, 0 4px 24px #58a6ff11;
+      border-color: #484f58;
     }
 
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .card-title-wrap {
+    /* 头部：图标 + 名称 + 元信息，彼此紧邻 */
+    .card-head {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
-    /* CC 图标 */
     .card-icon {
       width: 44px;
       height: 44px;
       border-radius: 10px;
-      background: linear-gradient(135deg, #1f6feb, #388bfd);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.75rem;
       font-weight: 800;
       color: #fff;
-      letter-spacing: -0.02em;
       flex-shrink: 0;
     }
 
     .card-name {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 700;
-      color: #e6edf3;
+      line-height: 1.2;
+      color: var(--text);
     }
 
-    .card-version {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #3fb950;
-      background: #12261e;
-      border: 1px solid #1f4d2f;
-      border-radius: 20px;
-      padding: 2px 8px;
-      margin-top: 2px;
-    }
-
-    .card-badges {
+    /* 元信息：版本 · 平台 · 技术，一行灰字 */
+    .card-meta {
+      margin-top: 4px;
       display: flex;
-      align-items: center;
-      gap: 8px;
       flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: var(--text-2);
     }
 
-    .badge {
-      font-size: 0.7rem;
-      color: #8b949e;
-      background: #21262d;
-      border: 1px solid #30363d;
-      border-radius: 20px;
-      padding: 3px 10px;
+    .card-meta > * + *::before {
+      content: '·';
+      margin: 0 8px;
+      color: var(--text-3);
+    }
+
+    .card-meta .version {
+      font-family: var(--mono);
     }
 
     .card-desc {
-      margin-top: 16px;
+      margin-top: 20px;
       font-size: 0.95rem;
-      color: #8b949e;
-      line-height: 1.65;
+      line-height: 1.7;
+      color: var(--text-2);
     }
 
-    /* 功能 tag 列表 */
-    .feature-tags {
+    /* 功能列表：最弱一级，纯文字 */
+    .features {
+      margin-top: 12px;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 18px;
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--text-3);
     }
 
-    .feature-tag {
-      font-size: 0.75rem;
-      color: #58a6ff;
-      background: #0d2044;
-      border: 1px solid #1f3d6b;
-      border-radius: 6px;
-      padding: 3px 10px;
+    /* 分隔符挂在前一项末尾，换行时不会出现在行首 */
+    .features li:not(:last-child)::after {
+      content: '/';
+      margin: 0 10px;
+      color: var(--line-strong);
     }
 
     /* 操作按钮 */
     .card-actions {
       display: flex;
-      gap: 10px;
-      margin-top: 24px;
       flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: 8px;
       font-size: 0.85rem;
       font-weight: 600;
       text-decoration: none;
-      transition: opacity 0.15s, box-shadow 0.15s;
-    }
-
-    .btn:hover {
-      opacity: 0.85;
+      transition: background 0.15s, border-color 0.15s;
     }
 
     .btn-primary {
-      background: #1f6feb;
+      background: var(--accent-solid);
       color: #fff;
     }
 
+    .btn-primary:hover {
+      background: #388bfd;
+    }
+
     .btn-secondary {
-      background: transparent;
-      color: #c9d1d9;
-      border: 1px solid #30363d;
+      color: var(--text);
+      border: 1px solid var(--line-strong);
     }
 
     .btn-secondary:hover {
-      border-color: #8b949e;
+      border-color: var(--text-2);
     }
 
-    /* GitHub 链接图标 SVG */
-    .icon-github {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
+    .icon {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
     }
 
     .icon-download {
-      width: 14px;
-      height: 14px;
       stroke: currentColor;
       fill: none;
       stroke-width: 2;
@@ -219,175 +238,197 @@
       stroke-linejoin: round;
     }
 
-    /* 分割线 */
-    .divider {
-      border: none;
-      border-top: 1px solid #21262d;
-      margin: 0 24px 40px;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
+    .icon-github {
+      fill: currentColor;
+    }
+
+    /* 私有项目：更紧凑、更低调，无操作按钮 */
+    .project-card.is-private {
+      background: transparent;
+      border-style: dashed;
+      padding: 24px 28px;
+    }
+
+    .project-card.is-private .card-icon {
+      filter: saturate(0.6);
+      opacity: 0.85;
+    }
+
+    .project-card.is-private .card-desc {
+      margin-top: 16px;
+    }
+
+    .private-tag {
+      color: var(--text-3);
+    }
+
+    @media (max-width: 520px) {
+      .hero {
+        padding: 80px 0 48px;
+      }
+
+      .project-card,
+      .project-card.is-private {
+        padding: 24px 20px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- 共用 SVG 图标 -->
+  <svg width="0" height="0" style="position:absolute">
+    <symbol id="i-download" viewBox="0 0 24 24">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </symbol>
+    <symbol id="i-github" viewBox="0 0 24 24">
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+    </symbol>
+  </svg>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1>Hello From <span>TH</span>!</h1>
-    <p>独立开发者，专注于开发者工具与效率提升。</p>
-  </section>
+  <main class="container">
 
-  <hr class="divider" />
+    <!-- Hero -->
+    <header class="hero">
+      <h1>Hello From <span>TH</span>!</h1>
+      <p>独立开发者，专注于开发者工具与效率提升。</p>
+    </header>
 
-  <!-- 项目展示 -->
-  <section class="section">
-    <p class="section-title">Projects</p>
+    <hr class="divider" />
 
-    <div class="project-card">
-      <div class="card-header">
-        <div class="card-title-wrap">
-          <div class="card-icon" style="background: linear-gradient(135deg, #b45309, #f59e0b);">TH</div>
-          <div>
-            <div class="card-name">TH-Tab</div>
-            <div class="card-version">v0.2.0</div>
+    <!-- 公开项目 -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Projects</h2>
+      </div>
+
+      <div class="card-list">
+
+        <article class="project-card">
+          <div class="card-head">
+            <div class="card-icon" style="background: linear-gradient(135deg, #0f766e, #14b8a6);">MS</div>
+            <div>
+              <div class="card-name">MirrorSync</div>
+              <div class="card-meta">
+                <span class="version">v0.3.0</span>
+                <span>Windows</span>
+                <span>Tauri</span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="card-badges">
-          <span class="badge">Chrome</span>
-          <span class="badge">扩展</span>
-        </div>
-      </div>
 
-      <p class="card-desc">
-        安静的 Chrome 新标签页扩展——大字号时钟、搜索、常用网站快捷方式，再加上纪念日、节日倒数和微博热搜。排得像一张杂志封面，壁纸是主角。
-      </p>
+          <p class="card-desc">
+            目录单向镜像工具——维护多组「输入目录 → 输出目录」，一键将新增 / 更新的文件增量同步到输出目录，不会删除输出目录中已有的其他文件。
+          </p>
 
-      <div class="feature-tags">
-        <span class="feature-tag">时钟农历</span>
-        <span class="feature-tag">多引擎搜索</span>
-        <span class="feature-tag">快捷方式</span>
-        <span class="feature-tag">纪念日</span>
-        <span class="feature-tag">节日倒数</span>
-        <span class="feature-tag">微博热搜</span>
-        <span class="feature-tag">自定义壁纸</span>
-      </div>
+          <ul class="features">
+            <li>多目录对</li>
+            <li>批量同步</li>
+            <li>增量复制</li>
+            <li>子目录可选</li>
+            <li>实时进度</li>
+            <li>配置持久化</li>
+          </ul>
 
-      <div class="card-actions">
-        <a class="btn btn-primary" href="https://github.com/MonkeyDTH/TH-Tab/releases/latest" target="_blank">
-          <svg class="icon-download" viewBox="0 0 24 24">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          下载最新版本
-        </a>
-        <a class="btn btn-secondary" href="https://github.com/MonkeyDTH/TH-Tab" target="_blank">
-          <svg class="icon-github" viewBox="0 0 24 24">
-            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-          </svg>
-          GitHub
-        </a>
-      </div>
-    </div>
-
-    <div class="project-card" style="margin-top: 20px;">
-      <div class="card-header">
-        <div class="card-title-wrap">
-          <div class="card-icon" style="background: linear-gradient(135deg, #0f766e, #14b8a6);">MS</div>
-          <div>
-            <div class="card-name">MirrorSync</div>
-            <div class="card-version">v0.3.0</div>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://github.com/MonkeyDTH/MirrorSync/releases/latest" target="_blank">
+              <svg class="icon icon-download"><use href="#i-download"/></svg>
+              下载最新版本
+            </a>
+            <a class="btn btn-secondary" href="https://github.com/MonkeyDTH/MirrorSync" target="_blank">
+              <svg class="icon icon-github"><use href="#i-github"/></svg>
+              GitHub
+            </a>
           </div>
-        </div>
-        <div class="card-badges">
-          <span class="badge">Windows</span>
-          <span class="badge">Tauri</span>
-        </div>
-      </div>
+        </article>
 
-      <p class="card-desc">
-        目录单向镜像工具——维护多组「输入目录 → 输出目录」，一键将新增 / 更新的文件增量同步到输出目录，不会删除输出目录中已有的其他文件。
-      </p>
-
-      <div class="feature-tags">
-        <span class="feature-tag">多目录对</span>
-        <span class="feature-tag">批量同步</span>
-        <span class="feature-tag">增量复制</span>
-        <span class="feature-tag">子目录可选</span>
-        <span class="feature-tag">实时进度</span>
-        <span class="feature-tag">配置持久化</span>
-      </div>
-
-      <div class="card-actions">
-        <a class="btn btn-primary" href="https://github.com/MonkeyDTH/MirrorSync/releases/latest" target="_blank">
-          <svg class="icon-download" viewBox="0 0 24 24">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          下载最新版本
-        </a>
-        <a class="btn btn-secondary" href="https://github.com/MonkeyDTH/MirrorSync" target="_blank">
-          <svg class="icon-github" viewBox="0 0 24 24">
-            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-          </svg>
-          GitHub
-        </a>
-      </div>
-    </div>
-
-    <div class="project-card" style="margin-top: 20px;">
-      <div class="card-header">
-        <div class="card-title-wrap">
-          <div class="card-icon">CC</div>
-          <div>
-            <div class="card-name">CC Assistant</div>
-            <div class="card-version">v0.8.7</div>
+        <article class="project-card">
+          <div class="card-head">
+            <div class="card-icon" style="background: linear-gradient(135deg, #1f6feb, #388bfd);">CC</div>
+            <div>
+              <div class="card-name">CC Assistant</div>
+              <div class="card-meta">
+                <span class="version">v0.8.7</span>
+                <span>Windows</span>
+                <span>Claude Code</span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="card-badges">
-          <span class="badge">Windows</span>
-          <span class="badge">Claude Code</span>
-        </div>
+
+          <p class="card-desc">
+            Claude Code 桌面管理面板——可视化管理 Claude Code 的配置、会话、Skills、Plugins、Hooks 和 Memory。无需手动编辑 JSON / Markdown 文件。
+          </p>
+
+          <ul class="features">
+            <li>仪表盘</li>
+            <li>Prompt</li>
+            <li>Memory</li>
+            <li>Sessions</li>
+            <li>Skills</li>
+            <li>Plugins</li>
+            <li>Hooks</li>
+            <li>Settings</li>
+          </ul>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://github.com/MonkeyDTH/cc_assistant/releases/latest" target="_blank">
+              <svg class="icon icon-download"><use href="#i-download"/></svg>
+              下载最新版本
+            </a>
+            <a class="btn btn-secondary" href="https://monkeydth.github.io/cc_assistant/" target="_blank">
+              项目主页 →
+            </a>
+            <a class="btn btn-secondary" href="https://github.com/MonkeyDTH/cc_assistant" target="_blank">
+              <svg class="icon icon-github"><use href="#i-github"/></svg>
+              GitHub
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 私有 / 开发中项目 -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Private</h2>
+        <span class="section-note">开发中，暂未公开</span>
       </div>
 
-      <p class="card-desc">
-        Claude Code 桌面管理面板——可视化管理 Claude Code 的配置、会话、Skills、Plugins、Hooks 和 Memory。无需手动编辑 JSON / Markdown 文件。
-      </p>
+      <div class="card-list">
 
-      <div class="feature-tags">
-        <span class="feature-tag">仪表盘</span>
-        <span class="feature-tag">Prompt</span>
-        <span class="feature-tag">Memory</span>
-        <span class="feature-tag">Sessions</span>
-        <span class="feature-tag">Skills</span>
-        <span class="feature-tag">Plugins</span>
-        <span class="feature-tag">Hooks</span>
-        <span class="feature-tag">Settings</span>
+        <article class="project-card is-private">
+          <div class="card-head">
+            <div class="card-icon" style="background: linear-gradient(135deg, #b45309, #f59e0b);">TH</div>
+            <div>
+              <div class="card-name">TH-Tab</div>
+              <div class="card-meta">
+                <span class="version">v0.2.0</span>
+                <span>Chrome 扩展</span>
+                <span class="private-tag">私有仓库</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="card-desc">
+            安静的 Chrome 新标签页扩展——大字号时钟、搜索、常用网站快捷方式，再加上纪念日、节日倒数和微博热搜。排得像一张杂志封面，壁纸是主角。
+          </p>
+
+          <ul class="features">
+            <li>时钟农历</li>
+            <li>多引擎搜索</li>
+            <li>快捷方式</li>
+            <li>纪念日</li>
+            <li>节日倒数</li>
+            <li>微博热搜</li>
+            <li>自定义壁纸</li>
+          </ul>
+        </article>
+
       </div>
+    </section>
 
-      <div class="card-actions">
-        <a class="btn btn-primary" href="https://github.com/MonkeyDTH/cc_assistant/releases/latest" target="_blank">
-          <svg class="icon-download" viewBox="0 0 24 24">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          下载最新版本
-        </a>
-        <a class="btn btn-secondary" href="https://monkeydth.github.io/cc_assistant/" target="_blank">
-          项目主页 →
-        </a>
-        <a class="btn btn-secondary" href="https://github.com/MonkeyDTH/cc_assistant" target="_blank">
-          <svg class="icon-github" viewBox="0 0 24 24">
-            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-          </svg>
-          GitHub
-        </a>
-      </div>
-    </div>
-  </section>
-
+  </main>
 </body>
 </html>
